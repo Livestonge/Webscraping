@@ -1,4 +1,4 @@
-
+import datetime
 
 class Date:
     def __init__(self, day, month):
@@ -8,14 +8,19 @@ class Date:
 class User:
 
     def __init__(self, from_where, to_where, dp_date, arr_date):
+
         self.from_where = from_where
         self.to_where = to_where
         self.dp_date = dp_date
         self.arr_date = arr_date
 
+        self.nbr_of_click_dp = abs(datetime.datetime.now().month - (dp_date.month + 1))
+        self.nbr_of_click_arr = abs(dp_date.month - arr_date.month)
+
 class Month:
 
    def __init__(self, nbr_of_days_in_the_first_week, nbr_of_days_in_the_last_week, nbr_of_extra_days):
+
        self.nbr_of_days_in_the_first_week = nbr_of_days_in_the_first_week
        self.nbr_of_days_in_the_last_week = nbr_of_days_in_the_last_week
        # each month has 4 weeks and few extra days.
