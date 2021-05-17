@@ -7,10 +7,11 @@ class Date:
 
 class User:
 
-    def __init__(self, from_where, to_where, date):
+    def __init__(self, from_where, to_where, dp_date, arr_date):
         self.from_where = from_where
         self.to_where = to_where
-        self.date = date
+        self.dp_date = dp_date
+        self.arr_date = arr_date
 
 class Month:
 
