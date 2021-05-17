@@ -1,5 +1,17 @@
 
 
+class Date:
+    def __init__(self, day, month):
+        self.day = day
+        self.month = month
+
+class User:
+
+    def __init__(self, from_where, to_where, date):
+        self.from_where = from_where
+        self.to_where = to_where
+        self.date = date
+
 class Month:
 
    def __init__(self, nbr_of_days_in_the_first_week, nbr_of_days_in_the_last_week, nbr_of_extra_days):
@@ -80,7 +92,6 @@ class Manager:
         calender = Calender()
         month = calender.construct_month(self.month_index)
         nbr_of_day_in_month = 0
-        print(month.nbr_of_days_in_the_first_week, month.nbr_of_days_in_the_last_week, month.nbr_of_extra_days)
         row = 0
         if month.nbr_of_extra_days == 2:
             nbr_of_day_in_month = 30
@@ -108,7 +119,6 @@ class Manager:
         for week in matrix:
             for date in week:
                 if date == day:
-                    print("Yessssss")
                     if month.nbr_of_days_in_the_first_week == 0:
                         row = matrix.index(week)
                     else:
