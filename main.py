@@ -1,3 +1,4 @@
+import datetime
 import time
 from selenium import webdriver
 import calender as calenderFile
@@ -39,21 +40,35 @@ if __name__ == '__main__':
     dateDeparture = driver.find_element_by_id("d1-btn")
     dateDeparture.click()
 
-    manager_dp = calenderFile.Manager(5)
-    manager_arr = calenderFile.Manager(7)
-    row_dp, column_dp = manager_dp.retrieve_row_and_column(10)
-    row_arr, column_arr = manager_arr.retrieve_row_and_column(8)
+    departure_date = calenderFile.Date(10, 8)
+    arrival_date = calenderFile.Date(18, 10)
+
+    manager_dp = calenderFile.Manager(departure_date.month)
+    manager_arr = calenderFile.Manager(arrival_date.month)
+    row_dp, column_dp = manager_dp.retrieve_row_and_column(departure_date.day)
+    row_arr, column_arr = manager_arr.retrieve_row_and_column(arrival_date.day)
+
+    next_btn_dp = driver.find_element_by_xpath("//div[@class='uitk-calendar']/div/button[2]")
+    nbr_of_click_dp = abs(datetime.datetime.now().month - (departure_date.month + 1))
+
+    for j in range(1, nbr_of_click_dp):
+        next_btn_dp.click()
+        time.sleep(2)
+
     departure_date_field = driver.find_element_by_xpath("//div/div[2]/table[@class='uitk-date-picker-weeks']/tbody/tr[{}]/td[{}]".format(row_dp + 1, column_dp + 1))
     departure_date_field.click()
     done_button = driver.find_element_by_xpath("//div/button[@data-stid='apply-date-picker']")
     done_button.click()
-    time.sleep(5)
+    time.sleep(3)
 
     arrival_field = driver.find_element_by_id("d2-btn")
     arrival_field.click()
     time.sleep(2)
-    next_btn = driver.find_element_by_xpath("//div[@class='uitk-calendar']/div/button[2]")
-    next_btn.click()
+    next_btn_arr = driver.find_element_by_xpath("//div[@class='uitk-calendar']/div/button[2]")
+
+    for i in range(1, abs(departure_date.month - arrival_date.month)):
+         next_btn_arr.click()
+         time.sleep(2)
 
     #next_btn.click()
     time.sleep(3)
