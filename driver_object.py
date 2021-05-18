@@ -11,7 +11,6 @@ class Expedia_scraper:
         # Optional argument, if not specified will search path.
         self.driver = webdriver.Chrome()
 
-
     def start_selenium(self):
 
         self.driver.get('https://www.expedia.com')
@@ -21,9 +20,8 @@ class Expedia_scraper:
         self.user_going_to(self.user.to_where)
         self.find_fill_dp_field()
         self.find_fill_arr_field()
+        self.find_click_search_bt()
         self.driver.quit()
-
-
 
     def flights_dep(self):
         # Move the user to the flights page.
@@ -39,10 +37,10 @@ class Expedia_scraper:
         time.sleep(0.5)
         GoingToField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you leaving from?']")
         GoingToField_2.send_keys("{}".format(place))
-        time.sleep(1)
+        time.sleep(3)
         GoingToField_3 = self.driver.find_element_by_xpath("//div/ul[@class='uitk-typeahead-results no-bullet']/li[1]")
         GoingToField_3.click()
-        time.sleep(0.5)
+        time.sleep(1)
 
     def user_going_to(self, place):
 
@@ -52,28 +50,31 @@ class Expedia_scraper:
         time.sleep(1)
         destinationField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you going to?']")
         destinationField_2.send_keys("{}".format(place))
-        time.sleep(1)
+        time.sleep(3)
         destinationField_3_xp = "//div/ul[@class='uitk-typeahead-results no-bullet' and @data-stid='location-field-leg1-destination-results']/li[1]"
         destinationField_3 = self.driver.find_element_by_xpath(destinationField_3_xp)
         destinationField_3.click()
-        time.sleep(2)
+        time.sleep(1)
 
     def find_fill_dp_field(self):
 
         dateDeparture = self.driver.find_element_by_id("d1-btn")
+        aria_label = dateDeparture.get_attribute("aria-label")
+        current_date = datetime.datetime.strptime(aria_label[10:], "%B %w, %Y")
+        nbr_of_click_dp = abs(current_date.month - (self.user.dp_date.month + 1))
         dateDeparture.click()
-        departure_date = self.user.dp_date
-        manager_dp = objects.Manager(departure_date.month)
-        row_dp, column_dp = manager_dp.retrieve_row_and_column(departure_date.day)
 
+        manager_dp = objects.Manager(self.user.dp_date.month)
+        row_dp, column_dp = manager_dp.retrieve_row_and_column(self.user.dp_date.day)
         next_btn_dp = self.driver.find_element_by_xpath("//div[@class='uitk-calendar']/div/button[2]")
 
-        for j in range(1, self.user.nbr_of_click_dp):
+        for j in range(1, nbr_of_click_dp):
             next_btn_dp.click()
             time.sleep(2)
 
         departure_date_field_xp = "//div/div[2]/table[@class='uitk-date-picker-weeks']/tbody/tr[{}]/td[{}]"
-        departure_date_field = self.driver.find_element_by_xpath(departure_date_field_xp.format(row_dp + 1, column_dp + 1))
+        departure_date_field = self.driver.find_element_by_xpath(
+            departure_date_field_xp.format(row_dp + 1, column_dp + 1))
         departure_date_field.click()
         done_button = self.driver.find_element_by_xpath("//div/button[@data-stid='apply-date-picker']")
         done_button.click()
@@ -100,10 +101,9 @@ class Expedia_scraper:
         done_button.click()
         time.sleep(3)
 
+    def find_click_search_bt(self):
 
-
-
-
-
-
-
+        bt_xpath = "//div/button[@data-testid='submit-button']"
+        search_bt = self.driver.find_element_by_xpath(bt_xpath)
+        search_bt.click()
+        time.sleep(60)
