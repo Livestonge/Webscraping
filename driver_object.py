@@ -37,7 +37,7 @@ class Expedia_scraper:
         time.sleep(0.5)
         GoingToField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you leaving from?']")
         GoingToField_2.send_keys("{}".format(place))
-        time.sleep(3)
+        time.sleep(8)
         GoingToField_3 = self.driver.find_element_by_xpath("//div/ul[@class='uitk-typeahead-results no-bullet']/li[1]")
         GoingToField_3.click()
         time.sleep(1)
@@ -50,7 +50,7 @@ class Expedia_scraper:
         time.sleep(1)
         destinationField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you going to?']")
         destinationField_2.send_keys("{}".format(place))
-        time.sleep(3)
+        time.sleep(8)
         destinationField_3_xp = "//div/ul[@class='uitk-typeahead-results no-bullet' and @data-stid='location-field-leg1-destination-results']/li[1]"
         destinationField_3 = self.driver.find_element_by_xpath(destinationField_3_xp)
         destinationField_3.click()
