@@ -58,21 +58,24 @@ class Expedia_scraper:
 
     def find_fill_dp_field(self):
 
-        dateDeparture = self.driver.find_element_by_id("d1-btn")
-        aria_label = dateDeparture.get_attribute("aria-label")
+        date_departure = self.driver.find_element_by_id("d1-btn")
+        aria_label = date_departure.get_attribute("aria-label")
         current_date = datetime.datetime.strptime(aria_label[10:], "%B %w, %Y")
         nbr_of_click_dp = abs(current_date.month - (self.user.dp_date.month + 1))
-        dateDeparture.click()
+        date_departure.click()
 
         manager_dp = objects.Manager(self.user.dp_date.month)
         row_dp, column_dp = manager_dp.retrieve_row_and_column(self.user.dp_date.day)
         next_btn_dp = self.driver.find_element_by_xpath("//div[@class='uitk-calendar']/div/button[2]")
 
-        for j in range(1, nbr_of_click_dp):
-            next_btn_dp.click()
-            time.sleep(2)
+        if nbr_of_click_dp > 0:
+            for j in range(1, nbr_of_click_dp):
+                next_btn_dp.click()
+                time.sleep(2)
+            departure_date_field_xp = "//div/div[2]/table[@class='uitk-date-picker-weeks']/tbody/tr[{}]/td[{}]"
+        else:
+            departure_date_field_xp = "//div/div[1]/table[@class='uitk-date-picker-weeks']/tbody/tr[{}]/td[{}]"
 
-        departure_date_field_xp = "//div/div[2]/table[@class='uitk-date-picker-weeks']/tbody/tr[{}]/td[{}]"
         departure_date_field = self.driver.find_element_by_xpath(
             departure_date_field_xp.format(row_dp + 1, column_dp + 1))
         departure_date_field.click()
