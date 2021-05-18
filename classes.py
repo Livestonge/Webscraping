@@ -14,7 +14,6 @@ class User:
         self.dp_date = dp_date
         self.arr_date = arr_date
 
-        self.nbr_of_click_dp = abs(datetime.datetime.now().month - (dp_date.month + 1))
         self.nbr_of_click_arr = abs(dp_date.month - arr_date.month)
 
 class Month:
