@@ -21,6 +21,8 @@ class Expedia_scraper:
         self.find_fill_dp_field()
         self.find_fill_arr_field()
         self.find_click_search_bt()
+        airline_info, price = self.find_lowest_price()
+        print(airline_info, price)
         self.driver.quit()
 
     def flights_dep(self):
@@ -109,4 +111,12 @@ class Expedia_scraper:
         bt_xpath = "//div/button[@data-testid='submit-button']"
         search_bt = self.driver.find_element_by_xpath(bt_xpath)
         search_bt.click()
-        time.sleep(60)
+        time.sleep(30)
+
+    def find_lowest_price(self):
+
+        price_xp = "//section//ul[@data-test-id='listings']/li[1]//span[@class='uitk-price-a11y is-visually-hidden']"
+        airline_info_xp = "//section//ul[@data-test-id='listings']/li[1]//div[@data-test-id='flight-operated']"
+        airline_info = self.driver.find_element_by_xpath(airline_info_xp)
+        price_ticket = self.driver.find_element_by_xpath(price_xp)
+        return airline_info.text, price_ticket.text
