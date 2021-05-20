@@ -43,7 +43,7 @@ class MonthConstructor:
             return 2
 
     def construct_month(self, index):
-        
+
         # We starts from index = 4 because we are in may in the calender for 2021.
         if index == 4:
             return Month(1, 2, 3)
