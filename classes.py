@@ -28,9 +28,10 @@ class Month:
 
 
 
-class Calender:
+class MonthConstructor:
 
-    def calculate_nbr_of_extra_days(self, value):
+    @staticmethod
+    def calculate_nbr_of_extra_days(value):
 
         if (((value % 2) == 0) & (value <= 6)) | (((value % 2) != 0) & (value > 6)):
             return 3
@@ -61,9 +62,15 @@ class Calender:
         else:
             pass
 
-    def construct_matrix(self, nbr_of_days_in_the_first_week, nbr_of_days_in_the_last_week):
-
-        matrix = []
+    @staticmethod
+    def construct_matrix(nbr_of_days_in_the_first_week, nbr_of_days_in_the_last_week):
+        """
+        This function constructs and returns the 7 days or full weeks of a month.
+        :param nbr_of_days_in_the_first_week:
+        :param nbr_of_days_in_the_last_week:
+        :return: This function returns an array of arrays(weeks).
+        """
+        seven_days_weeks = []
         week = []
         max_limit = 0
 
