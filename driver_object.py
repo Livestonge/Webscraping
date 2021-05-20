@@ -4,7 +4,7 @@ from selenium import webdriver
 import classes as objects
 
 
-class Expedia_scraper:
+class ExpediaScraper:
 
     def __init__(self, user):
         self.user = user
@@ -34,14 +34,15 @@ class Expedia_scraper:
 
     def user_departing_from(self, place):
 
-        GoingToField_1 = self.driver.find_element_by_xpath("//div[@class='uitk-typeahead']")
-        GoingToField_1.click()
+        going_to_field_1 = self.driver.find_element_by_xpath("//div[@class='uitk-typeahead']")
+        going_to_field_1.click()
         time.sleep(0.5)
-        GoingToField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you leaving from?']")
-        GoingToField_2.send_keys("{}".format(place))
+        going_to_field_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you leaving from?']")
+        going_to_field_2.send_keys("{}".format(place))
+        # Waits and give the website time to load a list.
         time.sleep(8)
-        GoingToField_3 = self.driver.find_element_by_xpath("//div/ul[@class='uitk-typeahead-results no-bullet']/li[1]")
-        GoingToField_3.click()
+        going_to_field_3 = self.driver.find_element_by_xpath("//div/ul[@class='uitk-typeahead-results no-bullet']/li[1]")
+        going_to_field_3.click()
         time.sleep(1)
 
     def user_going_to(self, place):
@@ -50,19 +51,22 @@ class Expedia_scraper:
         destinationField_1 = self.driver.find_element_by_xpath(destination_field_xp)
         destinationField_1.click()
         time.sleep(1)
-        destinationField_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you going to?']")
-        destinationField_2.send_keys("{}".format(place))
+        destination_field_2 = self.driver.find_element_by_xpath("//div/input[@placeholder='Where are you going to?']")
+        destination_field_2.send_keys("{}".format(place))
+        # Waits and give the website time to load a list.
         time.sleep(8)
-        destinationField_3_xp = "//div/ul[@class='uitk-typeahead-results no-bullet' and @data-stid='location-field-leg1-destination-results']/li[1]"
-        destinationField_3 = self.driver.find_element_by_xpath(destinationField_3_xp)
-        destinationField_3.click()
+        destination_field_3_xp = "//div/ul[@class='uitk-typeahead-results no-bullet' and @data-stid='location-field-leg1-destination-results']/li[1]"
+        destination_field_3 = self.driver.find_element_by_xpath(destination_field_3_xp)
+        destination_field_3.click()
         time.sleep(1)
 
     def find_fill_dp_field(self):
 
         date_departure = self.driver.find_element_by_id("d1-btn")
+        # Finds and retrieve the current month in the websites calendar.
         aria_label = date_departure.get_attribute("aria-label")
         current_date = datetime.datetime.strptime(aria_label[10:], "%B %w, %Y")
+
         nbr_of_click_dp = abs(current_date.month - (self.user.dp_date.month + 1))
         date_departure.click()
 
