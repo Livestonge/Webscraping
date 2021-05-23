@@ -9,6 +9,7 @@ the lowest price and the corresponding airline. I made this project to help myse
 - Pycharm CE 11.0.10
 - Selenium 3.141.0
 - Virtual environment
+- Git
 - Chromedriver 90.0.4430.24
 - OOP patterns
 
