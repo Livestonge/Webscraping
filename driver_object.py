@@ -65,7 +65,7 @@ class ExpediaScraper:
         date_departure = self.driver.find_element_by_id("d1-btn")
         # Finds and retrieve the current month in the websites calendar.
         aria_label = date_departure.get_attribute("aria-label")
-        current_date = datetime.datetime.strptime(aria_label[10:], "%B %w, %Y")
+        current_date = datetime.datetime.strptime(aria_label[10:], "%B %d, %Y")
 
         nbr_of_click_dp = abs(current_date.month - (self.user.dp_date.month + 1))
         date_departure.click()
