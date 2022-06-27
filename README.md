@@ -1,6 +1,6 @@
 # Webscraping
 
-Webscraping is an open-source project that aims to monitore price evolution for flights at www.expedia.com. It automates the filling of a trip details and returns 
+Webscraping is an project that aims to monitore price evolution for flights at www.expedia.com. It automates the filling of a trip details and returns 
 the lowest price and the corresponding airline. I made this project to help myself and people find cheap flight tickets for this year 2021.
 
 ## Technologies:
